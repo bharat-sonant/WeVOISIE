@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_name">20sp</dimen>
+    <dimen name="login_btn_text">16sp</dimen>
+</resources>

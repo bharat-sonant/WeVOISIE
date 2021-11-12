@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Nikhil code/Office-Work/Projects/Application/app/src/main/res/layout/activity_complaint.xml" value="0.25416666666666665" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable-v24/top_rounded_corner.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/bottom_corners.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/bottom_left_corner.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.19722222222222222" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/camera_icon.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/capture_background.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/close_filter_icon.xml" value="0.15" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/complaint_activity_background_1.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/complaint_activity_background_2.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/complaint_left.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/pen_com_background.xml" value="0.22552083333333334" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/pending_icon.xml" value="0.19722222222222222" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/selected_background.xml" value="0.22552083333333334" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/sign_in_btn_shape.xml" value="0.19722222222222222" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/spinner_background_for_filters.xml" value="0.19722222222222222" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/top_rounded_corner.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/drawable/unselected_background.xml" value="0.1935185185185185" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/activity_complaint.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/activity_landing.xml" value="0.25" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/activity_login_actitivty.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/bottom_corners.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/custom_camera_alertbox.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/expandable_list_view_layout.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/info_dialog_layout.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/parent_lv_layout.xml" value="0.15462962962962962" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/layout/types_lv_layout.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/menu/main_activity_menu.xml" value="0.209375" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/mipmap-anydpi-v26/WeVOIS.xml" value="0.20833333333333334" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/mipmap-anydpi-v26/WeVOISAppIcon.xml" value="0.20833333333333334" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.15" />
+        <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/mipmap-anydpi-v26/wevoisicon.xml" value="0.20833333333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

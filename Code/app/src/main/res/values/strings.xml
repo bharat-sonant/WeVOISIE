@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WeVOIS IE</string>
+    <string name="accept">Accept</string>
+    <string name="choose_action">Choose Action</string>
+    <string name="info_text"><![CDATA[Please give the permissions for using the application \"\n \" Permissions > Allow all]]></string>
+    <string name="capture_photo">Capture</string>
+    <string name="cancel">Cancel</string>
+    <string name="capture">Capture</string>
+</resources>
