@@ -10,8 +10,8 @@ android {
         applicationId "com.wevois.application"
         minSdk 21
         targetSdk 30
-        versionCode 3
-        versionName "1.3"
+        versionCode 10
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,6 +25,13 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding{
+        enabled = true
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -42,7 +49,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:19.0.1'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
     implementation 'com.google.firebase:firebase-config:21.0.1'
+    implementation 'com.google.android.play:core:1.10.0'
     testImplementation 'junit:junit:4.+'
+    implementation 'com.android.volley:volley:1.2.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation "android.arch.lifecycle:viewmodel:1.1.1"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha01'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 }

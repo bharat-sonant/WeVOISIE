@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="detailsviewmodel"
+            type="com.wevois.application.viewmodel.DetailsViewModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="?attr/colorPrimary"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Complaint Details"
+                android:textColor="#fff"
+                android:textSize="22sp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    bind:imageUrl="@{detailsviewmodel.imageViewUrl}"
+                    android:scaleType="fitXY"/>
+
+                <ImageButton
+                    android:id="@+id/loc_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/complaint_activity_background_2"
+                    android:src="@drawable/loc_icon"
+                    android:onClick="@{()->detailsviewmodel.mapClick()}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/dirty_image_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/complaint_activity_background_2"
+                    android:src="@drawable/complaint_left"
+                    android:visibility="@{detailsviewmodel.isDirtyBtnVisible?View.VISIBLE:View.GONE}"
+                    android:onClick="@{()->detailsviewmodel.dirtyClick()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageButton
+                    android:id="@+id/clean_image_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/complaint_activity_background_2"
+                    android:src="@drawable/complaint_right"
+                    android:visibility="@{detailsviewmodel.isCleanBtnVisible?View.VISIBLE:View.GONE}"
+                    android:onClick="@{()->detailsviewmodel.cleanClick()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/complaint_activity_background_1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{detailsviewmodel.headingTv}"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableRight="@drawable/clock_icon"
+                    android:gravity="center|right"
+                    android:textSize="16sp"
+                    android:text="@{detailsviewmodel.timeTv}"
+                    android:drawablePadding="8dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:id="@+id/address_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="65dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/complaint_activity_background_1"
+                    android:padding="8dp"
+                    android:text="@{detailsviewmodel.addressTv}"
+                    android:textSize="14sp"/>
+
+                <ImageButton
+                    android:id="@+id/capture_image_btn"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="8dp"
+                    android:onClick="@{()->detailsviewmodel.captureClick()}"
+                    android:background="@drawable/capture_background"
+                    android:src="@drawable/camera_icon" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

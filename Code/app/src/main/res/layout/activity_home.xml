@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="homeviewmodel"
+            type="com.wevois.application.viewmodel.HomeViewModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="#fff">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:text="@string/app_name"
+                    android:textSize="22sp" />
+
+                <ImageButton
+                    android:id="@+id/filters_btn"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:src="@drawable/filter_icon"
+                    android:background="@null"
+                    android:onClick="@{()->homeviewmodel.filterBtn()}"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_margin="16dp"
+            android:weightSum="2"
+            android:background="@drawable/pen_com_background">
+
+            <TextView
+                android:id="@+id/pending_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{homeviewmodel.pendingTVText}"
+                android:textColor="@{homeviewmodel.pendingTVTextColor?@color/white:@color/black}"
+                android:background="@{homeviewmodel.pendingTVBackground?@drawable/selected_background:@drawable/unselected_background}"
+                android:onClick="@{()->homeviewmodel.pendingBtn()}" />
+
+            <TextView
+                android:id="@+id/complete_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@{homeviewmodel.completedTVText}"
+                android:textColor="@{homeviewmodel.completedTVTextColor?@color/white:@color/black}"
+                android:background="@{homeviewmodel.completedTVBackground?@drawable/selected_background:@drawable/unselected_background}"
+                android:onClick="@{()->homeviewmodel.completedBtn()}"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/parent_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:adapter="@{homeviewmodel.parentRecyclerViewAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </LinearLayout>
+</layout>

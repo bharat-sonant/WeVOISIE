@@ -6,6 +6,7 @@ import android.content.Context;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateTimeUtilities {
     private final String todayDate, todayMonthName, todayYear, yDate, yYear, yMonth,currentTime;
@@ -16,7 +17,7 @@ public class DateTimeUtilities {
     public DateTimeUtilities() {
         date = new Date();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        monthFormat = new SimpleDateFormat("MMMM");
+        monthFormat = new SimpleDateFormat("MMMM", Locale.US);
         yearFormat = new SimpleDateFormat("yyyy");
         todayDate = dateFormat.format(date);
         todayMonthName = monthFormat.format(date);

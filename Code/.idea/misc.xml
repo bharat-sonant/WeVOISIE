@@ -37,6 +37,26 @@
         <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/mipmap-anydpi-v26/WeVOISAppIcon.xml" value="0.20833333333333334" />
         <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.15" />
         <entry key="..\:/Office-Work/Projects/Application/app/src/main/res/mipmap-anydpi-v26/wevoisicon.xml" value="0.20833333333333334" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/drawable/bottom_right_corner.xml" value="0.18055555555555555" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.2388888888888889" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/drawable/complaint_activity_background_2.xml" value="0.21296296296296297" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/drawable/complaint_right.xml" value="0.21296296296296297" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/drawable/pending_icon.xml" value="0.2388888888888889" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/drawable/right_arrow_icon.xml" value="0.2388888888888889" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/drawable/sign_in_btn_shape.xml" value="0.23703703703703705" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/activity_complaint.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/activity_details.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/activity_landing.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/activity_login_actitivty.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/custom_camera_alertbox.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/info_dialog_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/parent_lv_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/WeVoisIE/Code/app/src/main/res/layout/types_lv_layout.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.wevois.application.Model.TypesListModel;
+import com.wevois.application.model.TypesListModel;
 import com.wevois.application.R;
 import com.wevois.application.Interface.TypeLvInterface;
 
