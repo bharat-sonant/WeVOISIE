@@ -6,4 +6,7 @@
     <string name="capture_photo">Capture</string>
     <string name="cancel">Cancel</string>
     <string name="capture">Capture</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="web_client_id">856963908097-rth7pec8p5t6amso9nclk3oktcdaajge.apps.googleusercontent.com</string>
 </resources>

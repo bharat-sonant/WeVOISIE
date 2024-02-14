@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -51,7 +52,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
     CommonMethods cmn;
     BottomSheetDialog bottomSheetDialog;
     DateTimeUtilities dateUt;
-    ArrayList<LandingListModel> landingListAl = new ArrayList<>(),completeListAl = new ArrayList<>(),pendingListAl = new ArrayList<>();
+    ArrayList<LandingListModel> landingListAl = new ArrayList<>(), completeListAl = new ArrayList<>(), pendingListAl = new ArrayList<>();
     ArrayList<TypesListModel> typeListAl = new ArrayList<>();
     ArrayList<String> zonesAl = new ArrayList<>();
     ArrayAdapter<String> spinnerArrAdapterForZones, spinnerArrAdapterForWards;
@@ -64,14 +65,14 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
     public ObservableField<Boolean> pendingTVTextColor = new ObservableField<>(true), completedTVTextColor = new ObservableField<>(false);
     public ObservableField<Spanned> pendingTVText = new ObservableField<>(Html.fromHtml("<b>Pending</b>")), completedTVText = new ObservableField<>(Html.fromHtml("Completed"));
     String zone = "", ward = "";
-    boolean isPass=true;
-    int position=0,category = 2, tempCat = 2;
+    boolean isPass = true;
+    int position = 0, category = 2, tempCat = 2;
     boolean isPendingSelected = true, isTodayCbSelected = true, isYesterdayCbSelected = false;
 
     public HomeViewModel(Activity activity, RecyclerView recyclerView) {
         this.activity = activity;
-        preferences = activity.getSharedPreferences("WeVOISIE",MODE_PRIVATE);
-        preferences.edit().putString("intentData","").apply();
+        preferences = activity.getSharedPreferences("WeVOISIE", MODE_PRIVATE);
+        preferences.edit().putString("intentData", "").apply();
         cmn = CommonMethods.getInstance();
         dateUt = new DateTimeUtilities();
         repository = new HomeRepository(cmn, activity);
@@ -84,7 +85,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
     private void setUpPendingCompleteFilter() {
         penComSelection();
         landingListAl = isPendingSelected ? pendingListAl : completeListAl;
-        parentRecyclerViewAdapter.set(new ParentRecyclerViewAdapter(landingListAl, activity,this));
+        parentRecyclerViewAdapter.set(new ParentRecyclerViewAdapter(landingListAl, activity, this));
         cmn.closeDialog(activity);
     }
 
@@ -120,7 +121,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
 
     private void setZoneAndWard() {
         try {
-            zonesAl.add("All Zone");
+//            zonesAl.add("All Zone");
             String temp = cmn.getFiltersPref(activity).getString("zonesAl", "");
             temp = temp.substring(1, temp.length() - 1);
             zonesAl = new ArrayList<>(Arrays.asList(temp.split(",")));
@@ -174,10 +175,11 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
     }
 
     private void fetchData(String year, String month, String todayDate, boolean b) {
-        activity.runOnUiThread(()->{
+        activity.runOnUiThread(() -> {
             Boolean isToday = b;
-            repository.fetchData(activity,year,month,todayDate).observe((LifecycleOwner) activity, snapshot->{
+            repository.fetchData(activity, year, month, todayDate).observe((LifecycleOwner) activity, snapshot -> {
                 if (snapshot.getValue() != null) {
+                    Log.e("Data URL", snapshot.toString());
                     filterDataForModel(snapshot, isToday);
                 } else {
                     setUpPendingCompleteFilter();
@@ -188,19 +190,24 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
 
     private void filterDataForModel(DataSnapshot snap, boolean isToday) {
         activity.runOnUiThread(() -> {
-            for (DataSnapshot dataSnapshot : snap.child(category + "").getChildren()) {
-                if (zone.length() > 1) {
-                    if (zone.trim().equalsIgnoreCase(String.valueOf(dataSnapshot.child("zone").getValue()))) {
+            Log.e("Data URL", snap.toString());
+            for (DataSnapshot dataSnapshot : snap.getChildren()) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Log.e("Data URL", "dataSnapshot1 " + dataSnapshot1.child("ward").toString());
+                    if (zone.length() > 1) {
+//                    if (zone.trim().equalsIgnoreCase(String.valueOf(dataSnapshot.child("zone").getValue()))) {
+                        Log.e("Data URL", ward + " " + dataSnapshot1.child("ward").getValue());
                         if (ward.length() > 1) {
-                            if (ward.trim().equalsIgnoreCase(String.valueOf(dataSnapshot.child("ward").getValue()))) {
-                                addDataToModel(dataSnapshot, snap, isToday);
+                            if (ward.trim().equalsIgnoreCase(String.valueOf(dataSnapshot1.child("ward").getValue()))) {
+                                addDataToModel(dataSnapshot1, dataSnapshot, isToday);
                             }
                         } else {
-                            addDataToModel(dataSnapshot, snap, isToday);
+                            addDataToModel(dataSnapshot1, dataSnapshot, isToday);
                         }
+//                    }
+                    } else {
+                        addDataToModel(dataSnapshot1, dataSnapshot, isToday);
                     }
-                } else {
-                    addDataToModel(dataSnapshot, snap, isToday);
                 }
             }
             setUpPendingCompleteFilter();
@@ -210,12 +217,13 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
     private void addDataToModel(DataSnapshot dataSnapshot, DataSnapshot snap, boolean isToday) {
         if (dataSnapshot.hasChild("imageRef") &&
                 dataSnapshot.hasChild("latLng") &&
-                dataSnapshot.hasChild("locality") &&
-                dataSnapshot.hasChild("time") &&
+//                dataSnapshot.hasChild("locality") &&
+                dataSnapshot.hasChild("dateTime") &&
                 dataSnapshot.hasChild("ward") &&
-                dataSnapshot.hasChild("zone") &&
-                dataSnapshot.hasChild("address") &&
-                dataSnapshot.hasChild("user")) {
+//                dataSnapshot.hasChild("zone") &&
+//                dataSnapshot.hasChild("address") &&
+                dataSnapshot.hasChild("userId")) {
+
             if (dataSnapshot.hasChild("BvgAction")) {
                 completeListAl.add(new LandingListModel(snap.getKey(),
                         String.valueOf(dataSnapshot.child("imageRef").getValue()),
@@ -238,16 +246,18 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
                 pendingListAl.add(new LandingListModel(snap.getKey(),
                         String.valueOf(dataSnapshot.child("imageRef").getValue()),
                         String.valueOf(dataSnapshot.child("latLng").getValue()),
-                        String.valueOf(dataSnapshot.child("locality").getValue()),
-                        String.valueOf(dataSnapshot.child("time").getValue()),
+                        "",
+                        String.valueOf(dataSnapshot.child("dateTime").getValue()),
                         String.valueOf(dataSnapshot.child("ward").getValue()),
-                        String.valueOf(dataSnapshot.child("zone").getValue()),
+                        "Test",
                         String.valueOf(dataSnapshot.child("address").getValue()),
                         String.valueOf(dataSnapshot.getKey()),
                         category + "",
                         isToday,
-                        String.valueOf(dataSnapshot.child("user").getValue())));
+                        String.valueOf(dataSnapshot.child("userId").getValue())));
             }
+        }else {
+            Log.e("Data URL", ward + " " );
         }
     }
 
@@ -267,6 +277,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
 
         typesLv.setAdapter(typesLVAdapter);
         zoneSpinner.setAdapter(spinnerArrAdapterForZones);
+        setUpWardSpinner("Test", wardSpinner);
         zoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -290,7 +301,8 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
         closeDialog.setOnClickListener(view -> bottomSheetDialog.dismiss());
         applyFilterBtn.setOnClickListener(view -> {
             if (tCb.isChecked() || yCb.isChecked()) {
-                zone = zoneSpinner.getSelectedItemId() == 0 ? zone = "" : (zone = zoneSpinner.getSelectedItem().toString());
+//                zone = zoneSpinner.getSelectedItemId() == 0 ? zone = "" : (zone = zoneSpinner.getSelectedItem().toString());
+                zone = "Test";
                 ward = wardSpinner.getSelectedItemId() == 0 ? ward = "" : (ward = wardSpinner.getSelectedItem().toString());
                 isTodayCbSelected = tCb.isChecked();
                 isYesterdayCbSelected = yCb.isChecked();
@@ -323,7 +335,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
 
     @Override
     public void onItemClick(int positions, LandingListModel model) {
-        if (isPass){
+        if (isPass) {
             isPass = false;
             position = positions;
             Intent intent = new Intent(activity, Details.class);
@@ -334,16 +346,17 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
 
     public void resume() {
         isPass = true;
-        if (!preferences.getString("intentData","").equalsIgnoreCase("")){
+        if (!preferences.getString("intentData", "").equalsIgnoreCase("")) {
             Gson gson = new Gson();
             String json = preferences.getString("intentData", "");
             ArrayList<LandingListModel> pendingListAls = new ArrayList<>();
-            Type type = new TypeToken<ArrayList<LandingListModel>>() {}.getType();
+            Type type = new TypeToken<ArrayList<LandingListModel>>() {
+            }.getType();
             pendingListAls = gson.fromJson(json, type);
             completeListAl.add(pendingListAls.get(0));
             pendingListAl.remove(position);
             setUpPendingCompleteFilter();
-            preferences.edit().putString("intentData","").apply();
+            preferences.edit().putString("intentData", "").apply();
         }
     }
 }

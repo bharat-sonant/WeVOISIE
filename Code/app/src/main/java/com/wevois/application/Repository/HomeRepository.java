@@ -1,6 +1,7 @@
 package com.wevois.application.Repository;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -30,6 +31,7 @@ public class HomeRepository {
     public LiveData<DataSnapshot> fetchData(Activity activity,String year, String month, String date) {
         MutableLiveData<DataSnapshot> response = new MutableLiveData<>();
         try {
+            Log.e("Data URL",cmn.rdbmsRef(activity).toString());
             cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + year + "/" + month + "/" + date).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

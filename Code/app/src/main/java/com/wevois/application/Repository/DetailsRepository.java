@@ -67,7 +67,8 @@ public class DetailsRepository {
                 mapToUpload.put("latlng", lastKnownLocation.getLatitude() + "," + lastKnownLocation.getLongitude());
                 mapToUpload.put("imageRef", model.getImageNm() + "~RESOLVED");
                 mapToUpload.put("user", cmn.getLoginPref(activity).getString("uid", ""));
-                rdmsRef.child(model.getCategory() + "/" + model.getSerialNm() + "/BvgAction").setValue(mapToUpload).addOnCompleteListener(taskRDBMS -> {
+                mapToUpload.put("address", model.getAdd());
+                rdmsRef.child(model.getDate() + "/" + model.getSerialNm() + "/BvgAction").setValue(mapToUpload).addOnCompleteListener(taskRDBMS -> {
                     if (taskRDBMS.isSuccessful()) {
                         new Thread(() -> cmn.rdbmsRef(activity).child("WastebinMonitor/Summary/DateWise/" + dateTimeUtil.getTodayDate() + "/totalResolvedCount")
                                 .runTransaction(new Transaction.Handler() {

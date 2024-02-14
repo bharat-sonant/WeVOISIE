@@ -6,6 +6,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.wevois.application.R;
 import com.wevois.application.Utilities.CommonMethods;
 import com.wevois.application.Utilities.DateTimeUtilities;
 import com.wevois.application.Views.Home;
@@ -32,6 +34,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class LoginViewModel extends ViewModel {
+
     Activity activity;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
@@ -45,14 +48,14 @@ public class LoginViewModel extends ViewModel {
         try {
             cmn = CommonMethods.getInstance();
             dtUtil = new DateTimeUtilities();
-
+            mAuth = FirebaseAuth.getInstance();
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken("381118272786-govj6slvjf5uathafc3lm8fq9r79qtiq.apps.googleusercontent.com")
+                    .requestIdToken(activity.getString(R.string.web_client_id))
                     .requestEmail()
                     .build();
 
             mGoogleSignInClient = GoogleSignIn.getClient(activity, gso);
-            mAuth = FirebaseAuth.getInstance();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,8 +64,10 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void firebaseAuthWithGoogle(int requestCode,int resultCode,Intent data) {
+        Log.e("WeVois IE"," Task "+requestCode+" "+resultCode);
         if (requestCode == RC_SIGN_IN && resultCode == RESULT_OK) {
-            cmn.setProgressDialog("Login", "Creating Account", activity);
+            cmn.setProgressDialog("Login", "Creating Accounttt", activity);
+            Log.e("WeVois IE"," Task "+requestCode);
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);

@@ -36,10 +36,10 @@ public class SplashViewModel extends ViewModel {
         }).start();
         repository = new SplashRepository(cmn, activity);
         pref = activity.getSharedPreferences("db_util", MODE_PRIVATE);
-        pref.edit().putString("dbRef", "https://iejaipurgreater.firebaseio.com/").apply();
-        pref.edit().putString("stoRef", "gs://dtdnavigator.appspot.com/Jaipur-Greater").apply();
-//        pref.edit().putString("dbRef", "https://dtdnavigatortesting.firebaseio.com/").apply();
-//        pref.edit().putString("stoRef", "gs://dtdnavigator.appspot.com/Test").apply();
+//        pref.edit().putString("dbRef", "https://iejaipurgreater.firebaseio.com/").apply();
+//        pref.edit().putString("stoRef", "gs://dtdnavigator.appspot.com/Jaipur-Greater").apply();
+        pref.edit().putString("dbRef", "https://dtdnavigatortesting.firebaseio.com/").apply();
+        pref.edit().putString("stoRef", "gs://dtdnavigator.appspot.com/Test").apply();
         new Thread(()-> repository.fetchWastebinTypes()).start();
         new Thread(()-> repository.fetchZonesAndWards()).start();
         new Thread(()-> repository.fetchLocMatchVal()).start();

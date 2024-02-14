@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wevois.application">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.CAMERA"
+        android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:icon="@mipmap/wevoisicon"
@@ -9,22 +20,39 @@
         android:roundIcon="@mipmap/wevoisicon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Application">
+
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBxn_GIPUJmY_kIMUwUjPtB2FWP_cisVwY" />
+
         <activity
             android:name=".Views.Details"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".Views.Home"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".Views.Login"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="fullSensor" />
         <activity
             android:name=".Views.Splash"
             android:exported="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullSensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,11 +60,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission
-        android:name="android.permission.CAMERA"
-        android:required="true" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

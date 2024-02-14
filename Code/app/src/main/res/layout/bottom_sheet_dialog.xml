@@ -163,12 +163,13 @@
             android:layout_height="55dp"
             android:background="@drawable/spinner_background_for_filters"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="8dp"/>
+            android:layout_marginRight="8dp"
+            android:visibility="gone"/>
 
         <Spinner
             android:id="@+id/ward_spinner"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="55dp"
             android:layout_marginLeft="8dp"
             android:background="@drawable/spinner_background_for_filters"

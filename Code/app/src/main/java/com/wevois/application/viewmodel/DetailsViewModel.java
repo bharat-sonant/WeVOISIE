@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -63,12 +64,22 @@ public class DetailsViewModel extends ViewModel {
         preferences.edit().putString("intentData", "").apply();
         dateTimeUtil = new DateTimeUtilities();
         model = (LandingListModel) activity.getIntent().getSerializableExtra("LandingListModel");
-        if (model.isToday()) {
-            stoRef = cmn.stoRef(activity).child("WastebinMonitorImages/" + dateTimeUtil.getYear() + "/" + dateTimeUtil.getMonth() + "/" + dateTimeUtil.getTodayDate());
-            rdmsRef = cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + dateTimeUtil.getYear() + "/" + dateTimeUtil.getMonth() + "/" + dateTimeUtil.getTodayDate());
-        } else {
-            stoRef = cmn.stoRef(activity).child("WastebinMonitorImages/" + dateTimeUtil.getyYear() + "/" + dateTimeUtil.getyMonth() + "/" + dateTimeUtil.getYDate());
-            rdmsRef = cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + dateTimeUtil.getyYear() + "/" + dateTimeUtil.getyMonth() + "/" + dateTimeUtil.getYDate());
+        if (model.getDate().equals("1")) {
+            if (model.isToday()) {
+                stoRef = cmn.stoRef(activity).child("ImagesData/OpenDepo/" + dateTimeUtil.getYear() + "/" + dateTimeUtil.getMonth() + "/" + dateTimeUtil.getTodayDate() + "/1");
+                rdmsRef = cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + dateTimeUtil.getYear() + "/" + dateTimeUtil.getMonth() + "/" + dateTimeUtil.getTodayDate());
+            } else {
+                stoRef = cmn.stoRef(activity).child("ImagesData/OpenDepo/" + dateTimeUtil.getyYear() + "/" + dateTimeUtil.getyMonth() + "/" + dateTimeUtil.getYDate()+"/1");
+                rdmsRef = cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + dateTimeUtil.getyYear() + "/" + dateTimeUtil.getyMonth() + "/" + dateTimeUtil.getYDate());
+            }
+        }else {
+            if (model.isToday()) {
+                stoRef = cmn.stoRef(activity).child("ImagesData/LitterDustbin/" + dateTimeUtil.getYear() + "/" + dateTimeUtil.getMonth() + "/" + dateTimeUtil.getTodayDate() + "/2");
+                rdmsRef = cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + dateTimeUtil.getYear() + "/" + dateTimeUtil.getMonth() + "/" + dateTimeUtil.getTodayDate());
+            } else {
+                stoRef = cmn.stoRef(activity).child("ImagesData/LitterDustbin/" + dateTimeUtil.getyYear() + "/" + dateTimeUtil.getyMonth() + "/" + dateTimeUtil.getYDate()+"/2");
+                rdmsRef = cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + dateTimeUtil.getyYear() + "/" + dateTimeUtil.getyMonth() + "/" + dateTimeUtil.getYDate());
+            }
         }
         inIt();
         new Thread(()->{
@@ -80,6 +91,7 @@ public class DetailsViewModel extends ViewModel {
     private void inIt() {
         addressTv.set(model.getAdd());
         timeTv.set(model.getTime());
+        Log.e("Data URL","image name "+model.getImageNm()+" "+model.getDate());
         callImageMethod(stoRef.child(model.getImageNm()).toString(), true);
     }
 
@@ -130,6 +142,7 @@ public class DetailsViewModel extends ViewModel {
                 resolvedViewUrl.set(response);
             }
             imageViewUrl.set(response);
+            Log.e("Data URL"," image "+response);
             cmn.closeDialog(activity);
         });
     }
