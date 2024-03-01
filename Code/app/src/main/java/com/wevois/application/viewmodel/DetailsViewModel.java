@@ -63,6 +63,7 @@ public class DetailsViewModel extends ViewModel {
         preferences = activity.getSharedPreferences("WeVOISIE", MODE_PRIVATE);
         preferences.edit().putString("intentData", "").apply();
         dateTimeUtil = new DateTimeUtilities();
+        imageViewUrl.set(null);
         model = (LandingListModel) activity.getIntent().getSerializableExtra("LandingListModel");
         if (model.getDate().equals("1")) {
             if (model.isToday()) {
@@ -98,9 +99,19 @@ public class DetailsViewModel extends ViewModel {
     public void mapClick() {
         if (model.getLatlng().length() > 1) {
             try {
-                Uri gmmIntentUri = Uri.parse("geo:" + model.getLatlng() + "?q=" + model.getLatlng() + "(Label+Name)");
-                Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                activity.startActivity(intent);
+
+//                if (isCleanBtnVisible.get()){
+                    Log.e("Application","LatLng "+model.getLatlng()+isDirtyBtnVisible.get());
+                    Uri gmmIntentUri = Uri.parse("geo:" + model.getLatlng() + "?q=" + model.getLatlng() + "(WeVOISIE)");
+                    Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    activity.startActivity(intent);
+//                }else {
+//                    Log.e("Application","Action LatLng "+model.getActionLatLng()+isDirtyBtnVisible.get());
+//                    Uri gmmIntentUri = Uri.parse("geo:" + model.getActionLatLng() + "?q=" + model.getActionLatLng() + "(WeVOISIE)");
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//                    activity.startActivity(intent);
+//                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -113,7 +124,7 @@ public class DetailsViewModel extends ViewModel {
         isCleanBtnVisible.set(false);
         isDirtyBtnVisible.set(true);
         headingTv.set("Resolved -");
-        timeTv.set(model.getActionTime().equals("null") ? "--" : model.getActionTime());
+        timeTv.set(model.getActionTime().equals("null") ? "--" : model.getActionDate()+" "+model.getActionTime());
         if (resolvedViewUrl.get() == null) {
             callImageMethod(stoRef.child(model.getActionImageRef()).toString(), false);
         } else {
@@ -135,6 +146,7 @@ public class DetailsViewModel extends ViewModel {
 
     private void callImageMethod(String ref, boolean isComplaint) {
         cmn.setProgressDialog("Please wait...", "Image loading...", activity);
+        Log.e("Application"," imag "+ref);
         repository.downloadAndShowImage(ref, cmn, activity).observe((LifecycleOwner) activity, response -> {
             if (isComplaint) {
                 complaintViewUrl.set(response);

@@ -28,20 +28,34 @@ public class HomeRepository {
         this.activity = activity;
     }
 
-    public LiveData<DataSnapshot> fetchData(Activity activity,String year, String month, String date) {
+    public LiveData<DataSnapshot> fetchData(Activity activity,String year, String month, String date,int category) {
         MutableLiveData<DataSnapshot> response = new MutableLiveData<>();
         try {
             Log.e("Data URL",cmn.rdbmsRef(activity).toString());
-            cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + year + "/" + month + "/" + date).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    response.setValue(snapshot);
-                }
+            if (category > 0){
+                cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + year + "/" + month + "/" + date + "/" + category).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        response.setValue(snapshot);
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }else {
+                cmn.rdbmsRef(activity).child("WastebinMonitor/ImagesData/" + year + "/" + month + "/" + date).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        response.setValue(snapshot);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

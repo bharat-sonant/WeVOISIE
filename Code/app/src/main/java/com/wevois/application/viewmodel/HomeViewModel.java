@@ -79,7 +79,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
         cmn.setProgressDialog("", "Please wait checking types", activity);
         setTypes(cmn.getFiltersPref(activity).getString("wastebin_types_en", ""));
         setZoneAndWard();
-        fetchDb();
+        fetchDb(0);
     }
 
     private void setUpPendingCompleteFilter() {
@@ -108,6 +108,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
     }
 
     private void setTypes(String types) {
+        Log.e("HomeView ",types);
         String temp = types;
         temp = temp.substring(1, temp.length() - 1);
         String[] tmp = temp.split(", ");
@@ -161,26 +162,31 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
         }
     }
 
-    private void fetchDb() {
+    private void fetchDb(int category) {
         cmn.setProgressDialog("", "Please Wait fetching data", activity);
         landingListAl.clear();
         pendingListAl.clear();
         completeListAl.clear();
         if (isTodayCbSelected) {
-            fetchData(dateUt.getYear(), dateUt.getMonth(), dateUt.getTodayDate(), true);
+            fetchData(dateUt.getYear(), dateUt.getMonth(), dateUt.getTodayDate(),category, true);
         }
         if (isYesterdayCbSelected) {
-            fetchData(dateUt.getyYear(), dateUt.getyMonth(), dateUt.getYDate(), false);
+            fetchData(dateUt.getyYear(), dateUt.getyMonth(), dateUt.getYDate(),category, false);
         }
     }
 
-    private void fetchData(String year, String month, String todayDate, boolean b) {
+    private void fetchData(String year, String month, String todayDate, int category,boolean b) {
         activity.runOnUiThread(() -> {
             Boolean isToday = b;
-            repository.fetchData(activity, year, month, todayDate).observe((LifecycleOwner) activity, snapshot -> {
+            repository.fetchData(activity, year, month, todayDate,category).observe((LifecycleOwner) activity, snapshot -> {
                 if (snapshot.getValue() != null) {
                     Log.e("Data URL", snapshot.toString());
-                    filterDataForModel(snapshot, isToday);
+                    if (category > 0){
+                        filterDataForModel(snapshot, isToday);
+                    }else {
+                        allDataForModel(snapshot, isToday);
+                    }
+
                 } else {
                     setUpPendingCompleteFilter();
                 }
@@ -188,7 +194,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
         });
     }
 
-    private void filterDataForModel(DataSnapshot snap, boolean isToday) {
+    private void allDataForModel(DataSnapshot snap, boolean isToday) {
         activity.runOnUiThread(() -> {
             Log.e("Data URL", snap.toString());
             for (DataSnapshot dataSnapshot : snap.getChildren()) {
@@ -214,6 +220,32 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
         });
     }
 
+    private void filterDataForModel(DataSnapshot snap, boolean isToday) {
+        activity.runOnUiThread(() -> {
+            Log.e("Data URL", snap.toString());
+            for (DataSnapshot dataSnapshot : snap.getChildren()) {
+//                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+//                    Log.e("Data URL", "dataSnapshot1 " + dataSnapshot1.child("ward").toString());
+                    if (zone.length() > 1) {
+//                    if (zone.trim().equalsIgnoreCase(String.valueOf(dataSnapshot.child("zone").getValue()))) {
+                        Log.e("Data URL", ward + " " + dataSnapshot.child("ward").getValue());
+                        if (ward.length() > 1) {
+                            if (ward.trim().equalsIgnoreCase(String.valueOf(dataSnapshot.child("ward").getValue()))) {
+                                addDataToModel(dataSnapshot, snap, isToday);
+                            }
+                        } else {
+                            addDataToModel(dataSnapshot, snap, isToday);
+                        }
+//                    }
+                    } else {
+                        addDataToModel(dataSnapshot, dataSnapshot, isToday);
+                    }
+//                }
+            }
+            setUpPendingCompleteFilter();
+        });
+    }
+
     private void addDataToModel(DataSnapshot dataSnapshot, DataSnapshot snap, boolean isToday) {
         if (dataSnapshot.hasChild("imageRef") &&
                 dataSnapshot.hasChild("latLng") &&
@@ -229,9 +261,9 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
                         String.valueOf(dataSnapshot.child("imageRef").getValue()),
                         String.valueOf(dataSnapshot.child("latLng").getValue()),
                         String.valueOf(dataSnapshot.child("locality").getValue()),
-                        String.valueOf(dataSnapshot.child("time").getValue()),
+                        String.valueOf(dataSnapshot.child("dateTime").getValue()),
                         String.valueOf(dataSnapshot.child("ward").getValue()),
-                        String.valueOf(dataSnapshot.child("zone").getValue()),
+                        "",
                         String.valueOf(dataSnapshot.child("address").getValue()),
                         String.valueOf(dataSnapshot.getKey()),
                         category + "",
@@ -306,9 +338,9 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
                 ward = wardSpinner.getSelectedItemId() == 0 ? ward = "" : (ward = wardSpinner.getSelectedItem().toString());
                 isTodayCbSelected = tCb.isChecked();
                 isYesterdayCbSelected = yCb.isChecked();
-
+                Log.e("HomeView ",""+tempCat);
                 category = tempCat;
-                fetchDb();
+                fetchDb(category);
                 bottomSheetDialog.dismiss();
             } else {
                 Toast.makeText(activity, "Please Select atleast one day", Toast.LENGTH_SHORT).show();
