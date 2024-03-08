@@ -256,7 +256,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
 //                dataSnapshot.hasChild("address") &&
                 dataSnapshot.hasChild("userId")) {
 
-            if (dataSnapshot.hasChild("BvgAction")) {
+            if (dataSnapshot.hasChild("BvgAFction")) {
                 completeListAl.add(new LandingListModel(snap.getKey(),
                         String.valueOf(dataSnapshot.child("imageRef").getValue()),
                         String.valueOf(dataSnapshot.child("latLng").getValue()),
@@ -309,7 +309,7 @@ public class HomeViewModel extends ViewModel implements TypeLvInterface {
 
         typesLv.setAdapter(typesLVAdapter);
         zoneSpinner.setAdapter(spinnerArrAdapterForZones);
-        setUpWardSpinner("Test", wardSpinner);
+        setUpWardSpinner("Dehradun", wardSpinner);
         zoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

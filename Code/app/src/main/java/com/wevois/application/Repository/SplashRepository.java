@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import com.wevois.application.Utilities.CommonMethods;
 
 import org.json.JSONArray;
@@ -77,6 +79,7 @@ public class SplashRepository {
                                     .addOnSuccessListener(taskSnapshot -> {
                                         try {
                                             String str = new String(taskSnapshot, StandardCharsets.UTF_8);
+                                            Log.e("Application","hhh"+str);
                                             JSONObject zonesWardObject = new JSONObject(str);
                                             ArrayList<String> zonesAl = new ArrayList<>();
                                             zonesAl.add("All Zone");
